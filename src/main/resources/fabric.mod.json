@@ -3,10 +3,10 @@
   "id": "modid",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Beehive Tooltips",
+  "description": "Shows beehive tooltips on your beehives!",
   "authors": [
-    "Me!"
+    "EDToaster"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
@@ -19,7 +19,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "ca.edtoaster.BeehiveTooltipMod"
     ]
   },
   "mixins": [
