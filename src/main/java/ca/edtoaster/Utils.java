@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
@@ -17,10 +18,13 @@ import java.util.Optional;
 public class Utils {
     public static class BeeData {
         public final int numBees;
+        public final int numAdults, numBabies;
         public final String honeyLevel;
 
-        public BeeData(int numBees, String honeyLevel) {
+        public BeeData(int numBees, int numAdults, int numBabies, String honeyLevel) {
             this.numBees = numBees;
+            this.numAdults = numAdults;
+            this.numBabies = numBabies;
             this.honeyLevel = honeyLevel;
         }
     }
@@ -46,21 +50,29 @@ public class Utils {
         CompoundTag tag;
         if ((tag = stack.getTag()) == null) return Optional.empty();
 
-        int numBees;
-        String honeyLevel;
-
         CompoundTag blockEntityTag = tag.getCompound("BlockEntityTag");
         ListTag beesTag = blockEntityTag.getList("Bees", 10);
-        numBees = beesTag.size();
+
+        int adults = 0, babies = 0;
+
+        for (Tag bee : beesTag) {
+            CompoundTag entityTag = ((CompoundTag) bee).getCompound("EntityData");
+            int age = entityTag.getInt("Age");
+            if (age >= 0) adults++;
+            else babies++;
+        }
+
+
+        int numBees = adults + babies;
 
         CompoundTag blockStateTag = tag.getCompound("BlockStateTag");
-        honeyLevel = blockStateTag.getString("honey_level");
-        System.out.println(blockStateTag);
-        return Optional.of(new BeeData(numBees, honeyLevel));
+
+        String honeyLevel = blockStateTag.getString("honey_level");
+        return Optional.of(new BeeData(numBees, adults, babies, honeyLevel));
     }
 
-    public static Text getBeeText(int numBees) {
-        return new LiteralText("Bees: ").setStyle(YELLOW_STYLE).append(new LiteralText(String.format("%d", numBees)).setStyle(WHITE_STYLE));
+    public static Text getBeeText(int numBees, int numAdults, int numBabies) {
+        return new LiteralText("Bees: ").setStyle(YELLOW_STYLE).append(new LiteralText(String.format("%d (%d:%d)", numBees, numAdults, numBabies)).setStyle(WHITE_STYLE));
     }
 
     public static Text getHoneyText(String honeyLevel) {

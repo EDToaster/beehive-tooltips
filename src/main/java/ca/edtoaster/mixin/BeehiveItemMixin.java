@@ -37,7 +37,7 @@ public class BeehiveItemMixin {
 
             if (op.isPresent()) {
                 Utils.BeeData data = op.get();
-                tooltip.add(Utils.getBeeText(data.numBees));
+                tooltip.add(Utils.getBeeText(data.numBees, data.numAdults, data.numBabies));
                 tooltip.add(Utils.getHoneyText(data.honeyLevel));
             } else {
                 // invalid beehive

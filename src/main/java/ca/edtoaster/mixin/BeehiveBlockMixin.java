@@ -42,10 +42,5 @@ public class BeehiveBlockMixin {
 
         System.out.println("Player valid");
         System.out.println(stack.toString());
-
-//        Utils.extractBeeData(stack).ifPresent(numBees -> {
-//            p.addChatMessage(Utils.getBeeText(numBees), true);
-//            System.out.println("Found " + numBees + " bees");
-//        });
     }
 }
