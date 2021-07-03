@@ -1,7 +1,6 @@
 package ca.edtoaster;
 
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.recipe.MapExtendingRecipe;
 
 public class BeehiveTooltipMod implements ModInitializer {
     @Override
