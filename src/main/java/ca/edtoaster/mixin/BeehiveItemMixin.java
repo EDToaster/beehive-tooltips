@@ -6,7 +6,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.*;
 import net.minecraft.world.BlockView;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,7 +18,6 @@ import java.util.Optional;
 
 @Mixin(Block.class)
 public class BeehiveItemMixin {
-
     /**
      * Injects code at the end of the block build tooltip function.
      *
@@ -28,7 +26,7 @@ public class BeehiveItemMixin {
      * @param options the tooltip options, used to determine if we are in advanced mode
      */
     @Environment(EnvType.CLIENT)
-    @Inject(at = @At("TAIL"), method = "buildTooltip")
+    @Inject(at = @At("TAIL"), method = "appendTooltip")
     private void buildTooltip(ItemStack stack, BlockView view, List<Text> tooltip, TooltipContext options, CallbackInfo info) {
         if (!options.isAdvanced()) return;
 

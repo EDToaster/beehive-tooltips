@@ -5,9 +5,9 @@ import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
@@ -47,16 +47,16 @@ public class Utils {
      * the creative menu), then this method will return no data.
      */
     public static Optional<BeeData> extractBeeData(ItemStack stack) {
-        CompoundTag tag;
+        NbtCompound tag;
         if ((tag = stack.getTag()) == null) return Optional.empty();
 
-        CompoundTag blockEntityTag = tag.getCompound("BlockEntityTag");
-        ListTag beesTag = blockEntityTag.getList("Bees", 10);
+        NbtCompound blockEntityTag = tag.getCompound("BlockEntityTag");
+        NbtList beesTag = blockEntityTag.getList("Bees", 10);
 
         int adults = 0, babies = 0;
 
-        for (Tag bee : beesTag) {
-            CompoundTag entityTag = ((CompoundTag) bee).getCompound("EntityData");
+        for (NbtElement bee : beesTag) {
+            NbtCompound entityTag = ((NbtCompound) bee).getCompound("EntityData");
             int age = entityTag.getInt("Age");
             if (age >= 0) adults++;
             else babies++;
@@ -65,7 +65,7 @@ public class Utils {
 
         int numBees = adults + babies;
 
-        CompoundTag blockStateTag = tag.getCompound("BlockStateTag");
+        NbtCompound blockStateTag = tag.getCompound("BlockStateTag");
 
         String honeyLevel = blockStateTag.getString("honey_level");
         return Optional.of(new BeeData(numBees, adults, babies, honeyLevel));

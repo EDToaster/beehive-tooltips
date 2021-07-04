@@ -2,12 +2,11 @@
   "required": true,
   "minVersion": "0.8",
   "package": "ca.edtoaster.mixin",
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "JAVA_16",
   "mixins": [
   ],
   "client": [
-    "BeehiveItemMixin",
-    "FlowerOffset"
+    "BeehiveItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1
