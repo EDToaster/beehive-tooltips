@@ -1,0 +1,6 @@
+{
+  "item.minecraft.beehive.honey_tooltip": "Niveles de Miel: %s",
+  "item.minecraft.beehive.bee_tooltip": "Abejas: %s (Adultas: %s)",
+
+  "item.minecraft.beehive.unplaced": "No Colocado"
+}

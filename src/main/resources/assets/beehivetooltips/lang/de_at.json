@@ -1,0 +1,6 @@
+{
+  "item.minecraft.beehive.honey_tooltip": "Honigstufen: %s",
+  "item.minecraft.beehive.bee_tooltip": "Bienen: %s (Erwachsene: %s)",
+
+  "item.minecraft.beehive.unplaced": "Nicht platziert"
+}
