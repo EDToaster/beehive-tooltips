@@ -1,0 +1,8 @@
+{
+  "item.minecraft.beehive.honey_prefix": "Honey Level: ",
+  "item.minecraft.beehive.honey_tooltip": "%d",
+  "item.minecraft.beehive.bee_prefix": "Bees: ",
+  "item.minecraft.beehive.bee_tooltip": "%d (%d Adults)",
+
+  "item.minecraft.beehive.unplaced": "Unplaced"
+}
