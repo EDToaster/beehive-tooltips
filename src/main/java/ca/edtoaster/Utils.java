@@ -78,13 +78,11 @@ public class Utils {
     }
 
     public static Text getBeeText(int numBees, int numAdults) {
-        return new TranslatableText("item.minecraft.beehive.bee_prefix").setStyle(YELLOW_STYLE).append(
-                new TranslatableText("item.minecraft.beehive.bee_tooltip", numBees, numAdults).setStyle(WHITE_STYLE));
+        return new TranslatableText("item.minecraft.beehive.bee_tooltip", numBees, numAdults).setStyle(WHITE_STYLE);
     }
 
     public static Text getHoneyText(String honeyLevel) {
-        return new TranslatableText("item.minecraft.beehive.honey_prefix").setStyle(YELLOW_STYLE).append(
-                new TranslatableText("item.minecraft.beehive.honey_tooltip", honeyLevel).setStyle(WHITE_STYLE));
+        return new TranslatableText("item.minecraft.beehive.honey_tooltip", honeyLevel).setStyle(WHITE_STYLE);
     }
 
     public static Text getUnplacedText() {
@@ -92,6 +90,5 @@ public class Utils {
     }
 
     public static final Style WHITE_STYLE = Style.EMPTY.withColor(Formatting.WHITE);
-    public static final Style YELLOW_STYLE = Style.EMPTY.withColor(Formatting.YELLOW);
     public static final Style INVALID_STYLE = Style.EMPTY.withItalic(true).withColor(Formatting.GRAY);
 }
