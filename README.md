@@ -1,9 +1,9 @@
-# Fabric Example Mod
+# Beehive Tooltips
 
-## Setup
+## What is it?
 
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
+This fabric mod lets you see the honey level and bee contents of a beehive.
 
-## License
+![beeeeees](screenshot.png)
 
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+More information on the [mod page](https://www.curseforge.com/minecraft/mc-mods/beehivetooltips)

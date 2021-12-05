@@ -48,7 +48,7 @@ public class Utils {
      */
     public static Optional<BeeData> extractBeeData(ItemStack stack) {
         NbtCompound tag;
-        if ((tag = stack.getTag()) == null) return Optional.empty();
+        if ((tag = stack.getNbt()) == null) return Optional.empty();
 
         NbtCompound blockEntityTag = tag.getCompound("BlockEntityTag");
         NbtList beesTag = blockEntityTag.getList("Bees", 10);
