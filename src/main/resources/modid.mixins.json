@@ -6,7 +6,8 @@
   "mixins": [
   ],
   "client": [
-    "BeehiveItemMixin"
+    "BeehiveItemMixin",
+    "FlowerOffset"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -83,7 +83,7 @@ public class Utils {
         return new LiteralText("Unplaced").setStyle(INVALID_STYLE);
     }
 
-    public static final Style WHITE_STYLE = new Style().setColor(Formatting.WHITE);
-    public static final Style YELLOW_STYLE = new Style().setColor(Formatting.YELLOW);
-    public static final Style INVALID_STYLE = new Style().setItalic(true).setColor(Formatting.GRAY);
+    public static final Style WHITE_STYLE = Style.EMPTY.withColor(Formatting.WHITE);
+    public static final Style YELLOW_STYLE = Style.EMPTY.withColor(Formatting.YELLOW);
+    public static final Style INVALID_STYLE = Style.EMPTY.withItalic(true).withColor(Formatting.GRAY);
 }
