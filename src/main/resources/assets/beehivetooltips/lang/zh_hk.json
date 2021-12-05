@@ -1,0 +1,6 @@
+{
+  "item.minecraft.beehive.honey_tooltip": "蜂蜜: %s",
+  "item.minecraft.beehive.bee_tooltip": "蜜蜂: %s (成年: %s)",
+
+  "item.minecraft.beehive.unplaced": "還沒有放置"
+}

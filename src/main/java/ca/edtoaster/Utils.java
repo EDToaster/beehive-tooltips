@@ -11,6 +11,7 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 
 import java.util.Optional;
@@ -67,23 +68,27 @@ public class Utils {
 
         NbtCompound blockStateTag = tag.getCompound("BlockStateTag");
 
+        // if honeylevel is empty, it must be stored as an int https://bugs.mojang.com/browse/MC-179531
         String honeyLevel = blockStateTag.getString("honey_level");
+        if (honeyLevel.isEmpty()) {
+            honeyLevel = "" + blockStateTag.getInt("honey_level");
+        }
+
         return Optional.of(new BeeData(numBees, adults, babies, honeyLevel));
     }
 
-    public static Text getBeeText(int numBees, int numAdults, int numBabies) {
-        return new LiteralText("Bees: ").setStyle(YELLOW_STYLE).append(new LiteralText(String.format("%d (%d:%d)", numBees, numAdults, numBabies)).setStyle(WHITE_STYLE));
+    public static Text getBeeText(int numBees, int numAdults) {
+        return new TranslatableText("item.minecraft.beehive.bee_tooltip", numBees, numAdults).setStyle(WHITE_STYLE);
     }
 
     public static Text getHoneyText(String honeyLevel) {
-        return new LiteralText("Honey Level: ").setStyle(YELLOW_STYLE).append(new LiteralText(String.format("%s", honeyLevel)).setStyle(WHITE_STYLE));
+        return new TranslatableText("item.minecraft.beehive.honey_tooltip", honeyLevel).setStyle(WHITE_STYLE);
     }
 
     public static Text getUnplacedText() {
-        return new LiteralText("Unplaced").setStyle(INVALID_STYLE);
+        return new TranslatableText("item.minecraft.beehive.unplaced").setStyle(INVALID_STYLE);
     }
 
     public static final Style WHITE_STYLE = Style.EMPTY.withColor(Formatting.WHITE);
-    public static final Style YELLOW_STYLE = Style.EMPTY.withColor(Formatting.YELLOW);
     public static final Style INVALID_STYLE = Style.EMPTY.withItalic(true).withColor(Formatting.GRAY);
 }
