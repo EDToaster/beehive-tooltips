@@ -1,6 +1,6 @@
-package ca.edtoaster.mixin;
+package ca.edtoaster.beehivetooltips.mixin;
 
-import ca.edtoaster.Utils;
+import ca.edtoaster.beehivetooltips.Utils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;

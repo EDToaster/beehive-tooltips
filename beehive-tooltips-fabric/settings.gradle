@@ -7,8 +7,3 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-
-rootProject.name = 'beehive-tooltips'
-
-include 'beehive-tooltips-common', 'beehive-tooltips-forge', 'beehive-tooltips-fabric'
-
