@@ -1,8 +1,8 @@
-package ca.edtoaster;
+package ca.edtoaster.beehivetooltips;
 
 import net.fabricmc.api.ModInitializer;
 
-public class BeehiveTooltipMod implements ModInitializer {
+public class BeehiveTooltipsFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         System.out.println("Nothing to initialize here ...");

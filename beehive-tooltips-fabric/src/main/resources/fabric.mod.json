@@ -4,35 +4,31 @@
   "version": "${version}",
 
   "name": "Beehive Tooltips",
-  "description": "Shows beehive tooltips on your beehives!",
-  "authors": [
-    "EDToaster"
-  ],
-  "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/EDToaster/beehive-tooltips"
-  },
+  "description": "",
+  "authors": ["EDToaster"],
+  "contact": {},
 
-  "license": "CC0-1.0",
+  "license": "MIT",
   "icon": "assets/beehivetooltips/icon.png",
 
   "environment": "*",
   "entrypoints": {
+    "client": [
+      "ca.edtoaster.beehivetooltips.client.BeehiveTooltipsFabricClient"
+    ],
     "main": [
-      "ca.edtoaster.BeehiveTooltipMod"
+      "ca.edtoaster.beehivetooltips.BeehiveTooltipsFabric"
     ]
   },
+
   "mixins": [
     "beehivetooltips.mixins.json"
   ],
-
+    
   "depends": {
-    "fabricloader": ">=0.11.3",
+    "fabricloader": ">=0.12.8",
     "fabric": "*",
     "minecraft": "1.18.x",
     "java": ">=17"
-  },
-  "suggests": {
-    "another-mod": "*"
   }
 }

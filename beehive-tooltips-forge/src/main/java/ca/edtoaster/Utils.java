@@ -1,18 +1,15 @@
 package ca.edtoaster;
 
-import net.minecraft.block.BeehiveBlock;
-import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtList;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.Style;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.*;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.BeehiveBlock;
+import net.minecraft.world.level.block.Block;
 
 import java.util.Optional;
 
@@ -32,8 +29,7 @@ public class Utils {
 
     public static boolean isBeehive(ItemStack stack) {
         Item i = stack.getItem();
-        if (!(i instanceof BlockItem)) return false;
-        BlockItem blockItem = (BlockItem) i;
+        if (!(i instanceof BlockItem blockItem)) return false;
         Block block = blockItem.getBlock();
         return block instanceof BeehiveBlock;
     }
@@ -48,16 +44,16 @@ public class Utils {
      * the creative menu), then this method will return no data.
      */
     public static Optional<BeeData> extractBeeData(ItemStack stack) {
-        NbtCompound tag;
-        if ((tag = stack.getNbt()) == null) return Optional.empty();
+        CompoundTag tag;
+        if ((tag = stack.getTag()) == null) return Optional.empty();
 
-        NbtCompound blockEntityTag = tag.getCompound("BlockEntityTag");
-        NbtList beesTag = blockEntityTag.getList("Bees", 10);
+        CompoundTag blockEntityTag = tag.getCompound("BlockEntityTag");
+        ListTag beesTag = blockEntityTag.getList("Bees", 10);
 
         int adults = 0, babies = 0;
 
-        for (NbtElement bee : beesTag) {
-            NbtCompound entityTag = ((NbtCompound) bee).getCompound("EntityData");
+        for (Tag bee : beesTag) {
+            CompoundTag entityTag = ((CompoundTag) bee).getCompound("EntityData");
             int age = entityTag.getInt("Age");
             if (age >= 0) adults++;
             else babies++;
@@ -66,7 +62,7 @@ public class Utils {
 
         int numBees = adults + babies;
 
-        NbtCompound blockStateTag = tag.getCompound("BlockStateTag");
+        CompoundTag blockStateTag = tag.getCompound("BlockStateTag");
 
         // if honeylevel is empty, it must be stored as an int https://bugs.mojang.com/browse/MC-179531
         String honeyLevel = blockStateTag.getString("honey_level");
@@ -77,18 +73,18 @@ public class Utils {
         return Optional.of(new BeeData(numBees, adults, babies, honeyLevel));
     }
 
-    public static Text getBeeText(int numBees, int numAdults) {
-        return new TranslatableText("item.minecraft.beehive.bee_tooltip", numBees, numAdults).setStyle(WHITE_STYLE);
+    public static MutableComponent getBeeText(int numBees, int numAdults) {
+        return new TranslatableComponent("item.minecraft.beehive.bee_tooltip", numBees, numAdults).setStyle(WHITE_STYLE);
     }
 
-    public static Text getHoneyText(String honeyLevel) {
-        return new TranslatableText("item.minecraft.beehive.honey_tooltip", honeyLevel).setStyle(WHITE_STYLE);
+    public static MutableComponent getHoneyText(String honeyLevel) {
+        return new TranslatableComponent("item.minecraft.beehive.honey_tooltip", honeyLevel).setStyle(WHITE_STYLE);
     }
 
-    public static Text getUnplacedText() {
-        return new TranslatableText("item.minecraft.beehive.unplaced").setStyle(INVALID_STYLE);
+    public static MutableComponent getUnplacedText() {
+        return new TranslatableComponent("item.minecraft.beehive.unplaced").setStyle(INVALID_STYLE);
     }
 
-    public static final Style WHITE_STYLE = Style.EMPTY.withColor(Formatting.WHITE);
-    public static final Style INVALID_STYLE = Style.EMPTY.withItalic(true).withColor(Formatting.GRAY);
+    public static final Style WHITE_STYLE = Style.EMPTY.withColor(ChatFormatting.WHITE);
+    public static final Style INVALID_STYLE = Style.EMPTY.withItalic(true).withColor(ChatFormatting.GRAY);
 }
