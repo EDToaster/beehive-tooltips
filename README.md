@@ -1,4 +1,5 @@
 # Beehive Tooltips
+[![Publish release](https://github.com/EDToaster/beehive-tooltips/actions/workflows/publish-release.yml/badge.svg?branch=master)](https://github.com/EDToaster/beehive-tooltips/actions/workflows/publish-release.yml)
 
 ## What is it?
 
