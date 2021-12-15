@@ -1,0 +1,14 @@
+// DUMMY GRADLE MODULE just to get IntelliSense
+// Using fabric's toolchain to generate dependencies
+plugins {
+    id 'fabric-loom' version '0.10-SNAPSHOT'
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings loom.officialMojangMappings()
+}
+
+// disable all tasks here because fabric loom hijacks runClient and runServer
+tasks.configureEach { it.enabled false }
+

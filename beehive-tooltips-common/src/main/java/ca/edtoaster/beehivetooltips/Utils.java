@@ -1,4 +1,4 @@
-package ca.edtoaster;
+package ca.edtoaster.beehivetooltips;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -8,26 +8,34 @@ import net.minecraft.network.chat.*;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.block.BeehiveBlock;
 import net.minecraft.world.level.block.Block;
 
+import java.util.List;
 import java.util.Optional;
 
 public class Utils {
-    public static class BeeData {
-        public final int numBees;
-        public final int numAdults, numBabies;
-        public final String honeyLevel;
+    public record BeeData(int numBees, int numAdults, int numBabies, String honeyLevel) { }
 
-        public BeeData(int numBees, int numAdults, int numBabies, String honeyLevel) {
-            this.numBees = numBees;
-            this.numAdults = numAdults;
-            this.numBabies = numBabies;
-            this.honeyLevel = honeyLevel;
+    public static void buildBeehiveTooltip(ItemStack itemStack, List<Component> list, TooltipFlag tooltipFlag) {
+        if (!tooltipFlag.isAdvanced()) return;
+
+        if (Utils.isBeehive(itemStack)) {
+            Optional<Utils.BeeData> op = Utils.extractBeeData(itemStack);
+
+            if (op.isPresent()) {
+                Utils.BeeData data = op.get();
+                list.add(Utils.getBeeText(data.numBees, data.numAdults));
+                list.add(Utils.getHoneyText(data.honeyLevel));
+            } else {
+                // invalid beehive
+                list.add(Utils.getUnplacedText());
+            }
         }
     }
 
-    public static boolean isBeehive(ItemStack stack) {
+    private static boolean isBeehive(ItemStack stack) {
         Item i = stack.getItem();
         if (!(i instanceof BlockItem blockItem)) return false;
         Block block = blockItem.getBlock();
@@ -43,7 +51,7 @@ public class Utils {
      * itemstack (For example, upon loading or getting the beehive from
      * the creative menu), then this method will return no data.
      */
-    public static Optional<BeeData> extractBeeData(ItemStack stack) {
+    private static Optional<BeeData> extractBeeData(ItemStack stack) {
         CompoundTag tag;
         if ((tag = stack.getTag()) == null) return Optional.empty();
 

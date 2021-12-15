@@ -124,8 +124,6 @@ dependencies {
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft "net.minecraftforge:forge:${project.forge_version}"
 
-    api project(":beehive-tooltips-common")
-
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
     // runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}") // Adds the full JEI mod as a runtime dependency
@@ -137,15 +135,10 @@ dependencies {
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
-}
 
-sourceSets {
-    main {
-        resources {
-            srcDirs += [
-                    project(':beehive-tooltips-common').sourceSets.main.resources
-            ]
-        }
+    sync {
+        it.from '../beehive-tooltips-common/src/main/'
+        it.into './common/src/main/'
     }
 }
 
@@ -173,26 +166,21 @@ publishing {
             }
         }
     }
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-    repositories {
-        // Add repositories to publish to here.
-        // Notice: This block does NOT have the same function as the block in the top level.
-        // The repositories here will be used for publishing your artifact, not for
-        // retrieving dependencies.
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/EDToaster/beehive-tooltips")
-
-            credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN")
-            }
-        }
-    }
 }
 
-tasks.withType(JavaCompile).configureEach {
-    options.release = project.java_version as int
+sourceSets {
+    main {
+        resources {
+            srcDirs += [
+                    "./common/src/main/resources"
+            ]
+        }
+        java {
+            srcDirs += [
+                    "./common/src/main/java"
+            ]
+        }
+    }
 }
 
 jar.finalizedBy('reobfJar')
