@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "id": "beehivetooltips",
-  "version": "${version}",
+  "id": "${mod_id}",
+  "version": "${mod_version}",
 
-  "name": "Beehive Tooltips",
-  "description": "",
-  "authors": ["EDToaster"],
+  "name": "${mod_title}",
+  "description": "${mod_description}",
+  "authors": ["${mod_authors}"],
   "contact": {},
 
-  "license": "MIT",
-  "icon": "assets/beehivetooltips/icon.png",
+  "license": "${mod_license}",
+  "icon": "${mod_icon_path}",
 
   "environment": "*",
   "entrypoints": {
@@ -22,13 +22,13 @@
   },
 
   "mixins": [
-    "beehivetooltips.mixins.json"
+    "mixins.json"
   ],
-    
+
   "depends": {
     "fabricloader": ">=0.12.8",
     "fabric": "*",
-    "minecraft": "1.18.x",
+    "minecraft": "${minecraft_version_range_fabric}",
     "java": ">=17"
   }
 }

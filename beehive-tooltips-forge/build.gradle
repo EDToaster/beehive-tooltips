@@ -10,9 +10,9 @@ buildscript {
 }
 
 apply plugin: 'net.minecraftforge.gradle'
+archivesBaseName = archives_base_name_forge
 
 java {
-    archivesBaseName = project.archives_base_name
     toolchain.languageVersion = JavaLanguageVersion.of(project.java_version)
 }
 
@@ -28,7 +28,7 @@ minecraft {
     //
     // Use non-default mappings at your own risk. They may not always work.
     // Simply re-run your setup task after changing the mappings to update your workspace.
-    mappings channel: project.forge_mappings_channel, version: project.minecraft_version
+    mappings channel: forge_mappings_channel, version: minecraft_version
 
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
@@ -142,11 +142,33 @@ dependencies {
     }
 }
 
+processResources {
+    outputs.upToDateWhen { false }
+
+    inputs.property "version", project.version
+    filteringCharset "UTF-8"
+
+    filesMatching("META-INF/mods.toml") {
+        expand "mod_id": project.mod_id,
+                "mod_version": project.mod_version,
+                "mod_title": project.mod_title,
+                "mod_description": project.mod_description,
+                "mod_authors": project.mod_authors,
+                "mod_license": project.mod_license,
+                "mod_icon_path": project.mod_icon_path,
+                "minecraft_version_range_forge": project.minecraft_version_range_forge,
+                "forge_version_range": project.forge_version_range
+    }
+    filesMatching("pack.mcmeta") {
+        expand "mod_id": project.mod_id
+    }
+}
+
 // Example for how to get properties into the manifest for reading at runtime.
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : "beehivetooltips",
+                "Specification-Title"     : project.mod_id,
                 "Specification-Vendor": project.mod_authors,
                 "Specification-Version"   : "1", // We are version 1 of ourselves
                 "Implementation-Title"    : project.name,

@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.10-SNAPSHOT'
+    id 'fabric-loom' version "$loom_version"
     id 'maven-publish'
 }
 
@@ -11,7 +11,7 @@ repositories {
     // for more information about repositories.
 }
 
-archivesBaseName = project.archives_base_name
+archivesBaseName = archives_base_name_fabric
 
 dependencies {
     // To change the versions see the gradle.properties file
@@ -33,11 +33,20 @@ dependencies {
 }
 
 processResources {
+    outputs.upToDateWhen { false }
+
     inputs.property "version", project.version
     filteringCharset "UTF-8"
 
     filesMatching("fabric.mod.json") {
-        expand "version": project.version
+        expand "mod_id": project.mod_id,
+                "mod_version": project.mod_version,
+                "mod_title": project.mod_title,
+                "mod_description": project.mod_description,
+                "mod_authors": project.mod_authors,
+                "mod_license": project.mod_license,
+                "mod_icon_path": project.mod_icon_path,
+                "minecraft_version_range_fabric": project.minecraft_version_range_fabric
     }
 }
 
