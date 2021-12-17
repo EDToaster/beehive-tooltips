@@ -26,11 +26,11 @@ public class Utils {
 
             if (op.isPresent()) {
                 Utils.BeeData data = op.get();
-                list.add(Utils.getBeeText(data.numBees, data.numAdults));
-                list.add(Utils.getHoneyText(data.honeyLevel));
+                list.add(1, Utils.getBeeText(data.numBees, data.numAdults));
+                list.add(2, Utils.getHoneyText(data.honeyLevel));
             } else {
                 // invalid beehive
-                list.add(Utils.getUnplacedText());
+                list.add(1, Utils.getUnplacedText());
             }
         }
     }
@@ -81,15 +81,15 @@ public class Utils {
         return Optional.of(new BeeData(numBees, adults, babies, honeyLevel));
     }
 
-    public static MutableComponent getBeeText(int numBees, int numAdults) {
+    private static MutableComponent getBeeText(int numBees, int numAdults) {
         return new TranslatableComponent("item.minecraft.beehive.bee_tooltip", numBees, numAdults).setStyle(WHITE_STYLE);
     }
 
-    public static MutableComponent getHoneyText(String honeyLevel) {
+    private static MutableComponent getHoneyText(String honeyLevel) {
         return new TranslatableComponent("item.minecraft.beehive.honey_tooltip", honeyLevel).setStyle(WHITE_STYLE);
     }
 
-    public static MutableComponent getUnplacedText() {
+    private static MutableComponent getUnplacedText() {
         return new TranslatableComponent("item.minecraft.beehive.unplaced").setStyle(INVALID_STYLE);
     }
 
