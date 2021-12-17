@@ -51,7 +51,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                beehivetooltips {
+                "${project.mod_id}" {
                     source sourceSets.main
                 }
             }
@@ -72,7 +72,7 @@ minecraft {
             // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
             property 'forge.logging.console.level', 'debug'
             mods {
-                beehivetooltips {
+                "${project.mod_id}" {
                     source sourceSets.main
                 }
             }
@@ -97,7 +97,7 @@ minecraft {
             args '--mod', "${project.mod_id}", '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
-                beehivetooltips {
+                "${project.mod_id}" {
                     source sourceSets.main
                 }
             }
