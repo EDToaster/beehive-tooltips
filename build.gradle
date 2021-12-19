@@ -9,30 +9,38 @@ group = project.maven_group
 subprojects {
     apply plugin: 'java-library'
     apply plugin: 'maven-publish'
+    apply plugin: 'java'
 
-    group = parent.group
-    version = parent.version
-
-    def targetJavaVersion = project.java_version as int
-    java {
-        def javaVersion = JavaVersion.toVersion(targetJavaVersion)
-        sourceCompatibility = javaVersion
-        targetCompatibility = javaVersion
-        if (JavaVersion.current() < javaVersion) {
-            toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
-        }
-    }
+    java.toolchain.languageVersion = JavaLanguageVersion.of(project.java_version)
+    java.withSourcesJar()
+    java.withJavadocJar()
 
     tasks.withType(JavaCompile).configureEach {
-        it.options.encoding = "UTF-8"
-        if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
-            options.release = targetJavaVersion
-        }
+        it.options.encoding = 'UTF-8'
+        it.options.release = project.java_version as int
     }
 
     repositories {
         mavenCentral()
+
+        maven {
+            name = 'Sponge'
+            url = 'https://repo.spongepowered.org/repository/maven-public/'
+        }
     }
+
+    manifest {
+        attributes([
+                "Specification-Title"     : project.mod_id,
+                "Specification-Vendor": project.mod_authors,
+                "Specification-Version"   : "1", // We are version 1 of ourselves
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : project.version,
+                "Implementation-Vendor": project.mod_authors,
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+
 }
 
 configure(subprojects - project(":beehive-tooltips-common")) {

@@ -136,17 +136,13 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
-    sync {
-        it.from '../beehive-tooltips-common/src/main/'
-        it.into './common/src/main/'
-    }
+    compileOnly project(":beehive-tooltips-common")
 }
 
 processResources {
-    outputs.upToDateWhen { false }
-
     inputs.property "version", project.version
     filteringCharset "UTF-8"
+    from project(":beehive-tooltips-common").sourceSets.main.resources
 
     filesMatching("META-INF/mods.toml") {
         expand "mod_id": project.mod_id,
@@ -164,19 +160,8 @@ processResources {
     }
 }
 
-// Example for how to get properties into the manifest for reading at runtime.
-jar {
-    manifest {
-        attributes([
-                "Specification-Title"     : project.mod_id,
-                "Specification-Vendor": project.mod_authors,
-                "Specification-Version"   : "1", // We are version 1 of ourselves
-                "Implementation-Title"    : project.name,
-                "Implementation-Version"  : project.version,
-                "Implementation-Vendor": project.mod_authors,
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-        ])
-    }
+tasks.withType(JavaCompile) {
+    source(project(":beehive-tooltips-common").sourceSets.main.allSource)
 }
 
 publishing {
@@ -186,21 +171,6 @@ publishing {
             artifact(jar) {
                 builtBy jar
             }
-        }
-    }
-}
-
-sourceSets {
-    main {
-        resources {
-            srcDirs += [
-                    "./common/src/main/resources"
-            ]
-        }
-        java {
-            srcDirs += [
-                    "./common/src/main/java"
-            ]
         }
     }
 }

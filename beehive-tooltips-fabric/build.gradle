@@ -25,18 +25,13 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    // Common project
-    sync {
-        it.from '../beehive-tooltips-common/src/main/'
-        it.into './common/src/main/'
-    }
+    implementation project(":beehive-tooltips-common")
 }
 
 processResources {
-    outputs.upToDateWhen { false }
-
     inputs.property "version", project.version
     filteringCharset "UTF-8"
+    from project(":beehive-tooltips-common").sourceSets.main.resources
 
     filesMatching("fabric.mod.json") {
         expand "mod_id": project.mod_id,
@@ -48,6 +43,10 @@ processResources {
                 "mod_icon_path": project.mod_icon_path,
                 "minecraft_version_range_fabric": project.minecraft_version_range_fabric
     }
+}
+
+tasks.withType(JavaCompile) {
+    source(project(":beehive-tooltips-common").sourceSets.main.allSource)
 }
 
 jar {
@@ -63,21 +62,6 @@ publishing {
             artifact(remapJar) {
                 builtBy remapJar
             }
-        }
-    }
-}
-
-sourceSets {
-    main {
-        resources {
-            srcDirs += [
-                    "./common/src/main/resources"
-            ]
-        }
-        java {
-            srcDirs += [
-                    "./common/src/main/java"
-            ]
         }
     }
 }
