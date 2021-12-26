@@ -16,7 +16,17 @@ import java.util.List;
 import java.util.Optional;
 
 public class Utils {
-    public record BeeData(int numBees, int numAdults, int numBabies, String honeyLevel) { }
+    public static class BeeData {
+        public int numBees, numAdults, numBabies;
+        public String honeyLevel;
+
+        public BeeData(int numBees, int numAdults, int numBabies, String honeyLevel) {
+            this.numBees = numBees;
+            this.numAdults = numAdults;
+            this.numBabies = numBabies;
+            this.honeyLevel = honeyLevel;
+        }
+    }
 
     public static void buildBeehiveTooltip(ItemStack itemStack, List<Component> list, TooltipFlag tooltipFlag) {
         if (!tooltipFlag.isAdvanced()) return;
@@ -37,8 +47,8 @@ public class Utils {
 
     private static boolean isBeehive(ItemStack stack) {
         Item i = stack.getItem();
-        if (!(i instanceof BlockItem blockItem)) return false;
-        Block block = blockItem.getBlock();
+        if (!(i instanceof BlockItem)) return false;
+        Block block = ((BlockItem) i).getBlock();
         return block instanceof BeehiveBlock;
     }
 
