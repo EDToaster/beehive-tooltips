@@ -22,7 +22,6 @@
   },
 
   "mixins": [
-    "mixins.json"
   ],
 
   "depends": {

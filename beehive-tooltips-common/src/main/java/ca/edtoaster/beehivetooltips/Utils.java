@@ -36,8 +36,7 @@ public class Utils {
     }
 
     private static boolean isBeehive(ItemStack stack) {
-        Item i = stack.getItem();
-        if (!(i instanceof BlockItem blockItem)) return false;
+        if (!(stack.getItem() instanceof BlockItem blockItem)) return false;
         Block block = blockItem.getBlock();
         return block instanceof BeehiveBlock;
     }
