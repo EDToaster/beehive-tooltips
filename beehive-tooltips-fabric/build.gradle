@@ -12,6 +12,8 @@ repositories {
 }
 
 archivesBaseName = archives_base_name_fabric
+version = project.mod_version
+group = project.maven_group
 
 dependencies {
     // To change the versions see the gradle.properties file

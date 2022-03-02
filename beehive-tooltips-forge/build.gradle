@@ -11,6 +11,8 @@ buildscript {
 
 apply plugin: 'net.minecraftforge.gradle'
 archivesBaseName = archives_base_name_forge
+version = project.mod_version
+group = project.maven_group
 
 java {
     toolchain.languageVersion = JavaLanguageVersion.of(project.java_version)
