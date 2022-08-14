@@ -23,11 +23,15 @@ public class BeehiveItemMixin {
      *
      * @param stack   the ItemStack to display
      * @param tooltip the list of tooltip texts to append to
-     * @param options the tooltip options, used to determine if we are in advanced mode
+     * @param options the tooltip options, used to determine if we are in
+     *                advanced mode
      */
     @Environment(EnvType.CLIENT)
     @Inject(at = @At("TAIL"), method = "appendTooltip")
-    private void buildTooltip(ItemStack stack, BlockView view, List<Text> tooltip, TooltipContext options, CallbackInfo info) {
+    private void buildTooltip(
+        ItemStack stack, BlockView view, List<Text> tooltip,
+        TooltipContext options, CallbackInfo info
+    ) {
         if (!options.isAdvanced()) return;
 
         if (Utils.isBeehive(stack)) {
@@ -35,7 +39,8 @@ public class BeehiveItemMixin {
 
             if (op.isPresent()) {
                 Utils.BeeData data = op.get();
-                tooltip.add(Utils.getBeeText(data.numBees, data.numAdults, data.numBabies));
+                tooltip.add(Utils.getBeeText(data.numBees, data.numAdults,
+                                             data.numBabies));
                 tooltip.add(Utils.getHoneyText(data.honeyLevel));
             } else {
                 // invalid beehive

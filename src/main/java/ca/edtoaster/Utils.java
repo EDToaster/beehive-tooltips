@@ -8,7 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -21,7 +20,8 @@ public class Utils {
         public final int numAdults, numBabies;
         public final String honeyLevel;
 
-        public BeeData(int numBees, int numAdults, int numBabies, String honeyLevel) {
+        public BeeData(int numBees, int numAdults, int numBabies,
+                       String honeyLevel) {
             this.numBees = numBees;
             this.numAdults = numAdults;
             this.numBabies = numBabies;
@@ -72,18 +72,26 @@ public class Utils {
     }
 
     public static Text getBeeText(int numBees, int numAdults, int numBabies) {
-        return new LiteralText("Bees: ").setStyle(YELLOW_STYLE).append(new LiteralText(String.format("%d (%d:%d)", numBees, numAdults, numBabies)).setStyle(WHITE_STYLE));
+        return Text.literal("Bees: ")
+          .setStyle(YELLOW_STYLE)
+          .append(Text.literal(
+                String.format("%d (%d:%d)", numBees, numAdults, numBabies))
+              .setStyle(WHITE_STYLE));
     }
 
     public static Text getHoneyText(String honeyLevel) {
-        return new LiteralText("Honey Level: ").setStyle(YELLOW_STYLE).append(new LiteralText(String.format("%s", honeyLevel)).setStyle(WHITE_STYLE));
+        return Text.literal("Honey Level: ")
+          .setStyle(YELLOW_STYLE)
+          .append(Text.literal(String.format("%s", honeyLevel))
+              .setStyle(WHITE_STYLE));
     }
 
     public static Text getUnplacedText() {
-        return new LiteralText("Unplaced").setStyle(INVALID_STYLE);
+        return Text.literal("Unplaced").setStyle(INVALID_STYLE);
     }
 
     public static final Style WHITE_STYLE = Style.EMPTY.withColor(Formatting.WHITE);
     public static final Style YELLOW_STYLE = Style.EMPTY.withColor(Formatting.YELLOW);
-    public static final Style INVALID_STYLE = Style.EMPTY.withItalic(true).withColor(Formatting.GRAY);
+    public static final Style INVALID_STYLE = Style.EMPTY.withItalic(true)
+      .withColor(Formatting.GRAY);
 }

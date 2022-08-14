@@ -24,7 +24,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class BeehiveBlockMixin {
 
     @Inject(at = @At("HEAD"), method = "useOnBlock")
-    private void useOnBlock(ItemUsageContext context, CallbackInfoReturnable<ActionResult> info) {
+    private void useOnBlock(ItemUsageContext context,
+                            CallbackInfoReturnable<ActionResult> info) {
         System.out.println("used");
 
         if (!context.getWorld().isClient()) return;
