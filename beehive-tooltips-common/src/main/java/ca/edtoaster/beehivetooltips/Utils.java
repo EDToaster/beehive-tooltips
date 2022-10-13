@@ -81,15 +81,15 @@ public class Utils {
     }
 
     private static MutableComponent getBeeText(int numBees, int numAdults) {
-        return new TranslatableComponent("item.minecraft.beehive.bee_tooltip", numBees, numAdults).setStyle(WHITE_STYLE);
+        return Component.translatable("item.minecraft.beehive.bee_tooltip", numBees, numAdults).setStyle(WHITE_STYLE);
     }
 
     private static MutableComponent getHoneyText(String honeyLevel) {
-        return new TranslatableComponent("item.minecraft.beehive.honey_tooltip", honeyLevel).setStyle(WHITE_STYLE);
+        return Component.translatable("item.minecraft.beehive.honey_tooltip", honeyLevel).setStyle(WHITE_STYLE);
     }
 
     private static MutableComponent getUnplacedText() {
-        return new TranslatableComponent("item.minecraft.beehive.unplaced").setStyle(INVALID_STYLE);
+        return Component.translatable("item.minecraft.beehive.unplaced").setStyle(INVALID_STYLE);
     }
 
     public static final Style WHITE_STYLE = Style.EMPTY.withColor(ChatFormatting.WHITE);
