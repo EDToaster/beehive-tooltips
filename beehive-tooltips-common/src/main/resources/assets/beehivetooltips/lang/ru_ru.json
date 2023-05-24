@@ -2,5 +2,5 @@
   "item.minecraft.beehive.honey_tooltip": "Уровни мёда: %s",
   "item.minecraft.beehive.bee_tooltip": "Пчёл: %s (Взрослых: %s)",
 
-  "item.minecraft.beehive.unplaced": "Непроданный"
+  "item.minecraft.beehive.unplaced": "Неразмещённый"
 }
